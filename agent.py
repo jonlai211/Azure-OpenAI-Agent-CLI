@@ -1,8 +1,8 @@
 import requests
 import json
 
-endpoint = "https://jonlaiapikey.openai.azure.com/openai/deployments/jonlaiapikey/chat/completions?api-version=2024-02-15-preview"
-api_key = "99875946bcc44e6a998a48a3f4b418a9"
+endpoint = "https://YOUR_DEPLOYMENT_NAME.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME/chat/completions?api-version=2024-02-15-preview"
+api_key = "YOUR_API_KEY"
 
 headers = {
     "Content-Type": "application/json",

@@ -22,8 +22,8 @@ This project provides a simple command-line interface (CLI) to interact with the
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/azure-openai-agent.git
-   cd azure-openai-agent
+   git clone git@github.com:jonlai211/Azure-OpenAI-Agent-CLI.git
+   cd Azure-OpenAI-Agent-CLI/
    ```
 
 2. Create and activate a virtual environment:
@@ -39,12 +39,12 @@ This project provides a simple command-line interface (CLI) to interact with the
    pip install requests
    ```
 
-4. Create the `ag` Bash script:
+4. Modify the `ag` Bash script:
 
    ```bash
    echo '#!/bin/bash
-   source "/home/jonathan/PycharmProjects/Azure OpenAI Agent/.venv/bin/activate"
-   python "/home/jonathan/PycharmProjects/Azure OpenAI Agent/agent.py"' > ag.bash
+   source "Your_Path/Azure OpenAI Agent/.venv/bin/activate"
+   python "Your_Path/Azure OpenAI Agent/agent.py"' > ag.bash
    chmod +x ag.bash
    sudo cp ag.bash /usr/local/bin/ag
    ```
@@ -53,11 +53,7 @@ This project provides a simple command-line interface (CLI) to interact with the
 
 To start a chat session with the GPT model, simply type `ag` in your terminal and press Enter. Type your questions or commands, and the GPT model will respond. To exit the chat session, type `exit` or `quit`.
 
-```bash
-ag
-You: Hello, how can you help me today?
-GPT: Hello! I can assist you with a variety of questions and tasks. How can I help you today?
-```
+![Demo](demo.png)
 
 ## Configuration
 
