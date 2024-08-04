@@ -1,16 +1,19 @@
+import os
 import requests
-import json
+from dotenv import load_dotenv
 
-endpoint = "https://YOUR_DEPLOYMENT_NAME.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME/chat/completions?api-version=2024-02-15-preview"
-api_key = "YOUR_API_KEY"
+load_dotenv()
 
-headers = {
-    "Content-Type": "application/json",
-    "api-key": api_key
-}
+api_host = os.getenv('API_HOST')
+api_key = os.getenv("API_KEY")
 
 
-def chat_with_gpt(prompt):
+def chat(prompt):
+    headers = {
+        "Content-Type": "application/json",
+        "api-key": api_key
+    }
+
     data = {
         "messages": [
             {"role": "system", "content": "You are a helpful assistant."},
@@ -22,18 +25,24 @@ def chat_with_gpt(prompt):
     }
 
     try:
-        response = requests.post(endpoint, headers=headers, json=data)
-        response.raise_for_status()  # Will raise an HTTPError if the HTTP request returned an unsuccessful status code
+        response = requests.post(api_host, headers=headers, json=data)
+        response.raise_for_status()
         result = response.json()
-        return result['choices'][0]['message']['content']
+
+        if 'choices' in result and result['choices']:
+            return result['choices'][0].get('message', {}).get('content', 'No content available.')
+        else:
+            return "Unexpected response format."
     except requests.RequestException as e:
-        return f"Failed, Code: {response.status_code}\n{e}"
+        return f"Request failed with error: {str(e)}"
 
 
-while True:
-    user_input = input("You: ")
-    if user_input.lower() in ['exit', 'quit']:
-        print("Exiting chat.")
-        break
-    response = chat_with_gpt(user_input)
-    print(f"GPT: {response}")
+if __name__ == '__main__':
+    print("Enter 'exit' or 'quit' to end the chat.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ['exit', 'quit']:
+            print("Exiting chat.")
+            break
+        response = chat(user_input)
+        print(f"GPT: {response}")
